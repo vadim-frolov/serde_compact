@@ -1,0 +1,16 @@
+[package]
+name = "serde_compact"
+version = "0.0.1"
+edition = "2021"
+authors = ["vadim.frolov@thank-u.org"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "1.0", features = ["full", "fold"] }
+quote = "1.0"
+
+[dev-dependencies]
+serde = { version = "1.0", features = [ "derive" ] }
+serde_json = { version = "1.0.73", features = [ "preserve_order" ] }
