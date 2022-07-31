@@ -5,8 +5,6 @@
 
 Field names and enum tags are shortened and mapped with #[serde(rename ="")] macro.
 
-Example use case: compact callback queries in a Telegram bot to fit into their limit of 64 bit per callback.
-
 ```rust
 use serde_compact::compact;
 use serde::{Serialize, Deserialize};
@@ -27,17 +25,15 @@ enum CompactCallbackQuery {
 fn main() {
     let s = CallbackQuery::ConfirmEventReservation {event_id: 1, user_id: 1, ticket_type: 1};
     let ser_s = serde_json::to_string(&s).unwrap();
-    println!("serialized: {}, length = {}", ser_s, ser_s.len());
+    assert_eq!(ser_s, r#"{"ConfirmEventReservation":{"event_id":1,"user_id":1,"ticket_type":1}}"#);
+    assert_eq!(ser_s.len(), 70);
 
     let compact_s = CompactCallbackQuery::ConfirmEventReservation {event_id: 1, user_id: 1, ticket_type: 1};
     let ser_compact_s = serde_json::to_string(&compact_s).unwrap();
-    println!("compact:    {}, length = {}", ser_compact_s, ser_compact_s.len());
+    assert_eq!(ser_compact_s, r#"{"b":{"c":1,"e":1,"d":1}}"#);
+    assert_eq!(ser_compact_s.len(), 25);
+
+    let de: CompactCallbackQuery = serde_json::from_str(&ser_compact_s).unwrap();
+    assert_eq!(compact_s, de);
 }
-```
-
-Produces:
-
-```
-serialized: {"ConfirmEventReservation":{"event_id":1,"user_id":1,"ticket_type":1}}, length = 70
-compact:    {"a":{"b":1,"c":1,"d":1}}, length = 25
 ```
