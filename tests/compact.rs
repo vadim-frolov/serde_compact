@@ -37,6 +37,13 @@ mod tests {
 
         #[compact]
         #[derive(Serialize, Deserialize, PartialEq, Debug)]
+        enum EnumWithTuples {
+            Test(String, i32),
+        }
+        test_serde!(EnumWithTuples, EnumWithTuples::Test("".to_string(), 0));
+
+        #[compact]
+        #[derive(Serialize, Deserialize, PartialEq, Debug)]
         struct BigStruct {
             field1: i32,
             field2: i32,

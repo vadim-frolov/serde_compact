@@ -1,8 +1,16 @@
 [package]
 name = "serde_compact"
-version = "0.0.1"
+version = "1.0.0"
 edition = "2021"
 authors = ["vadim.frolov@thank-u.org"]
+categories = ["encoding"]
+description = "Macros to compact structs and enums serialized with serde"
+documentation = "https://docs.serde.rs/serde_compact/"
+keywords = ["serde", "serialization", "compact"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/vadim-frolov/serde_compact"
+readme = "README.md"
+rust-version = "1.61"
 
 [lib]
 proc-macro = true
